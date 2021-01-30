@@ -1,0 +1,10 @@
+# SNMP
+# Brute force community string
+onesixtyone -c /usr/share/wordlist/SecLists/Discovery/SNMP/common-snmp-community-strings-onesixtyone.txt <IP>
+
+snmpbulkwalk -c <COMMUNITY_STRING> -v <VERSION> <IP>
+
+snmp-check <IP>
+
+# Modifying SNMP values
+http://net-snmp.sourceforge.net/tutorial/tutorial-5/commands/snmpset.html

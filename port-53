@@ -1,0 +1,10 @@
+# Tool Enumeration
+dnsenum <DOMAIN>
+dnsrecon -d <DOMAIN>
+
+# Zone transfert
+dnsrecon -d <DOMAIN> -a
+dig axfr <DOMAIN> @ns1.test.com
+
+# DNS brute force
+https://github.com/blark/aiodnsbrute

