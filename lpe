@@ -1,0 +1,42 @@
+# Linux Priviledge Escalation
+# Enumeration scripts
+bash LinEnum.sh
+bash lse.sh -l 1
+bash linpeas.sh
+python linuxprivchecker.py
+./unix-privesc-check standard
+
+# Vulnerability scan
+perl les2.pl
+bash les.sh
+
+# Suid checker
+python suid3num.py
+https://gtfobins.github.io/
+
+# Methodology to follow
+https://guif.re/linuxeop
+https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/Methodology%20and%20Resources/Linux%20-%20Privilege%20Escalation.md
+
+# Look at:
+# If result is compiler look at *kernel* exploit
+which awk perl python ruby gcc cc vi vim nmap find netcat nc wget tftp ftp 2>/dev/null
+
+sudo -l
+OS Exploits
+Password reuse (mysql, .bash_history, 000- default.conf...)
+Known binaries with suid flag and interactive (nmap)
+Custom binaries with suid flag either using other binaries or with command execution
+Writable files owned by root that get executed (cronjobs)
+MySQL as root
+Vulnerable services (chkrootkit, logrotate)
+Writable /etc/passwd
+Readable .bash_history
+SSH private key
+Listening ports on localhost
+/etc/fstab
+/etc/exports
+/var/mail
+Process as other user (root) executing something you have permissions to modify
+SSH public key + Predictable PRNG
+apt update hooking (PreInvoke)

@@ -1,0 +1,26 @@
+# Compiling exploits
+# For linux
+# 64 bits
+gcc -o exploit exploit.c
+
+# 32 bits
+gcc -m32 -o exploit exploit.c
+
+# Compile windows .exe on Linux
+i586-mingw32msvc-gcc exploit.c -lws2_32 -o exploit.exe
+
+# For windows
+# x32
+i686-w64-mingw32-gcc -o <FILE.exe> <FILE.c>
+
+# x64
+x86_64-w64-mingw32-gcc -o <FILE.exe><FILE.c>
+
+# .cpp source file
+i586-mingw32msvc-g++ -o <FILE>.exe <FILE>.cpp
+
+# python scripts 
+pyinstaller --onefile <SCRIPT.py>
+
+# Cross compile
+gcc -m32 -Wall -Wl,--hash-style=both -o gimme.o gimme.c

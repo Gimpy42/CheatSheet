@@ -1,0 +1,11 @@
+# PIVOTING
+
+# Sshuttle
+sshuttle <USER>@<IP> <IP_OF_THE_INTERFACE>/CIDR
+
+# Proxychains
+ssh -f -N -D 9050 <USER>@<IP>
+proxychains <COMMAND>
+
+# Interesting link
+https://artkond.com/2017/03/23/pivoting-guide/

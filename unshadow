@@ -1,0 +1,2 @@
+# Obtain password hash
+unshadow passwd shadow > hashes
