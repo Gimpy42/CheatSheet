@@ -1,0 +1,10 @@
+# Generate shell on the fly
+
+# Download
+git clone https://github.com/ShutdownRepo/shellerator
+
+# Install requirements
+pip3 install --user -r requirements.txt
+
+# Executable from anywhere
+sudo cp shellrator.py /bin/shellrator

