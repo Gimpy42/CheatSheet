@@ -1,11 +1,18 @@
 # NFS - 2049
 # Show Mountable NFS Shares
 showmount -e <IP>
+showmount -a $ip
 nmap --script=nfs-showmount -oN mountable_shares <IP>
 
 # Mount a share
 sudo mount -v -t nfs <IP>:<SHARE> <DIRECTORY>
 sudo mount -v -t nfs -o vers=2 <IP>:<SHARE> <DIRECTORY>
+
+# If no read/write add user to Passwd with proper group
+adduser <USER>
+nano /etc/passwd
+<USER>:x:1016:1016:,,,:/home/pwn:/bin/bash
+su <USER>
 
 # NFS misconfigurations
 # List exported shares

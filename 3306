@@ -1,4 +1,7 @@
 # MYSQL - 3306
+# Enumeration
+nmap -sV -p 3306 --script mysql-audit,mysql-databases,mysql-dump-hashes,mysql-empty-password,mysql-enum,mysql-info,mysql-query,mysql-users,mysql-variables,mysql-vuln-cve2012-2122 <IP>
+
 # Brute force
 hydra -L <USERS_LIST> -P <PASSWORDS_LIST> <IP> mysql -vV -I -u
 

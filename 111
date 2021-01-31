@@ -1,0 +1,6 @@
+# RPCINFO
+
+nmap -v -p 111 --script=nfs* $ip
+rpcclient -U "" $target
+rpcclient $> enumdomusers
+rpcclient $> queryuser 0xrid_ID

