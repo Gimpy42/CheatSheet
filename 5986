@@ -1,3 +1,6 @@
+---
+tags: [ port, 5986 ]
+---
 # WINRM - 5985 - 5986
 # Brute force
 crackmapexec winrm <IP> -u <USERS_LIST> -p <PASSWORDS_LIST>

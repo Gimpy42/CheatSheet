@@ -1,3 +1,6 @@
+---
+tags: [ port, snmp ]
+---
 # SNMP
 # Brute force community string
 onesixtyone -c /usr/share/wordlist/SecLists/Discovery/SNMP/common-snmp-community-strings-onesixtyone.txt <IP>

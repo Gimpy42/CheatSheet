@@ -1,3 +1,6 @@
+---
+tags: [ exploit, wpe, windows, privesc ]
+---
 # Startup applications
 # Detection
 icacls.exe "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Startup"

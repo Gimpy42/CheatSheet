@@ -1,3 +1,6 @@
+---
+tags: [ exploit, wpe, windows, privesc ]
+---
 #CVE
 # Already compiled exploit
 https://github.com/SecWiki/windows-kernel-exploits

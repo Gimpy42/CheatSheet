@@ -1,3 +1,6 @@
+---
+tags: [ exploit, web, cgi ]
+---
 # CGI
 ffuf -w /usr/share/SecLists/Discovery/Web-Content/CGI-XPlatform.fuzz.txt -u <URL>/ccgi-bin/FUZZ -t 50
 ffuf -w /usr/share/SecLists/Discovery/Web-Content/CGIs.txt -u <URL>/ccgi-bin/FUZZ -t 50

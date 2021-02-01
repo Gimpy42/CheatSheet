@@ -1,3 +1,6 @@
+---
+tags: [ port, smb ]
+---
 # SMB
 # Scan for Vuln * Look for MS17-010, MS08-067, CVE-2017-7494 *
 nmap -p139,445 --script "smb-vuln-* and not(smb-vuln-regsvc-dos)" --script-args smb-vuln-cve-2017-7494.check-version,unsafe=1 <IP>

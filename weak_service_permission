@@ -1,3 +1,6 @@
+---
+tags: [ exploit, wpe, windows, privesc ]
+---
 # Weak service permission
 # Detection
 # Find all services authenticated users have modify access onto

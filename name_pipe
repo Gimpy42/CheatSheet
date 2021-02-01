@@ -1,3 +1,6 @@
+---
+tags: [ exploit, wpe, windows, privesc ]
+---
 # SeImpersonate or SeAssignPrimaryToken
 whoami /all
 

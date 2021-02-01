@@ -1,3 +1,6 @@
+---
+tags: [ port, ldap ]
+---
 # LDAP
 # Scans
 nmap -n -sV --script "ldap* and not brute"

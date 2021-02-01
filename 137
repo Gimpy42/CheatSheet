@@ -1,3 +1,6 @@
+---
+tags: [ port, nmb ]
+---
 # NMB
 nmblookup -A <IP>
 nbtscan <IP>/30

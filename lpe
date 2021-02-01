@@ -1,3 +1,6 @@
+---
+tags: [ exploit, lpe, linux, privesc ]
+---
 # Linux Priviledge Escalation
 # Enumeration scripts
 bash LinEnum.sh

@@ -1,3 +1,6 @@
+---
+tags: [ port, vnc ]
+---
 # VNC - 5800 - 58001 - 5900 - 5901
 # Scans
 nmap -sV --script vnc-info,realvnc-auth-bypass,vnc-title -v -p <PORT> <IP>

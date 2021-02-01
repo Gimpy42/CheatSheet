@@ -1,3 +1,6 @@
+---
+tags: [ port, ftp ]
+---
 # Brute Force FTP User
 hydra -V -f -L <USERS_LIST> -P <PASSWORDS_LIST> ftp://<IP> -u -vV
 

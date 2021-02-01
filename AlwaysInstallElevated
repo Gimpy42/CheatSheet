@@ -1,3 +1,6 @@
+---
+tags: [ exploit, wpe, windows, privesc ]
+---
 # AlwaysInstallElevated
 # Detection
 powershell -exec bypass -command "& { Import-Module .\PowerUp.ps1; Invoke-AllChecks; }"
