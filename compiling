@@ -2,6 +2,8 @@
 tags: [ tool, gcc ]
 ---
 # Compiling exploits
+sudo apt install mingw-w64
+
 # For linux
 # 64 bits
 gcc -o exploit exploit.c

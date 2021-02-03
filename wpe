@@ -33,6 +33,7 @@ cheat startup_app
 cheat weak_service_permission
 cheat unquoted_service_paths
 cheat hot_potato
+cheat juicy_potato
 cheat CVE
 
 # Common exploit

