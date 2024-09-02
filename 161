@@ -3,6 +3,7 @@ tags: [ port, snmp ]
 ---
 # SNMP
 # Brute force community string
+for ip in $(seq 1 254); do echo 192.168.50.$ip; done > ips
 onesixtyone -c /usr/share/wordlist/SecLists/Discovery/SNMP/common-snmp-community-strings-onesixtyone.txt <IP>
 
 snmpbulkwalk -c <COMMUNITY_STRING> -v <VERSION> <IP>

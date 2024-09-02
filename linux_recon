@@ -1,0 +1,32 @@
+---
+tags: [ exploit, recon, linux, linus_recon ]
+---
+# Linux Priviledge Escalation
+# Manual recon
+hostname && id && awk -F: '{if ($7 ~ /\/(bash|sh|zsh|dash|tcsh|ksh|csh)$/ || $1 ~ /_service$/) print}' /etc/passwd | sort -t: -k3
+uname -a && cat /etc/issue /etc/*-release
+ps aux # Look at other user process
+ip a # Look for other usable interface
+routel # Look for other potential route
+ss -anp # Look at other port being used of waiting to be used
+cat /etc/iptables/rules.v4 # Check for custom firewall rule
+ls -lah /etc/cron* # Look for potential file with bad permission that get executed by cron task
+sudo crontab -l # Look for the user task and sudo task
+dpkg -l # Get installed software with version // rpm -l for red hat system
+find / -writable -type d 2>/dev/null # List all writable folder
+for x in $(find / -writable -type d 2>/dev/null); do ls -latr $x;done
+cat /etc/fstab && echo && mount && echo && lsblk # Look for drive that may not be mounted
+lsmod # see loaded kernel nodule and by what -> /sbin/modinfo NAME  (For more information)
+find / -perm -u=s -type f 2>/dev/null # Find SUID Bin
+env # Look for password in variable
+cat ~/.*rc # Look for password in variable
+
+
+
+# Enumeration scripts
+bash LinEnum.sh
+bash lse.sh -l 1
+bash linpeas.sh
+python linuxprivchecker.py
+./unix-privesc-check standard
+

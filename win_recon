@@ -1,0 +1,57 @@
+---
+tags: [ exploit, wpe, windows, recon ]
+---
+# Windows Priviledge Escalation
+- Username and hostname
+- Group memberships of the current user
+- Existing users and groups
+- Operating system, version and architecture
+- Network information
+- Installed applications
+- Running processes
+
+# Enumeration
+# General Scanning tool
+winPEAS.exe
+winPEAS.bat
+windows-privesc-check2.exe
+Seatbelt.exe -group=all
+Import-Module .\PowerUp.ps1; Invoke-AllChecks;
+Powerless.bat
+
+# Group memberships of the current user
+whoami /group
+
+# Existing users and groups
+get-localuser
+net users
+
+get-localgroup
+net localgroup
+
+get-localgroupmember
+
+# Operating system, version and architecture
+systeminfo
+
+# Network information (See if we can have access to other network or if something is running on localhost only)
+ipconfig /all
+route print
+netstat -ano
+
+# Installed applications (To help find exploit later on)
+Get-ItemProperty "HKLM:\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\*" | select displayname
+Get-ItemProperty "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\*" | select displayname
+
+# Running processes
+get-process
+tasklist
+
+# looking for loot
+Get-childitem  -include *.kdbx,*.txt,*.ini,*.conf,*.pdf,*.xls,*.xlsx,*.doc,*.docx -File -Recurse -ErrorAction SilentlyContinue
+
+Get-history
+(Get-PSReadlineOption).HistorySavePath | ForEach-Object { Get-Content $_ }
+Get-WinEvent -LogName "Microsoft-Windows-PowerShell/Operational" -FilterXPath "*[System[(EventID=4104)]]" -Verbose | Select-Object -ExpandProperty Message
+
+

@@ -4,28 +4,11 @@ tags: [ exploit, wpe, windows, privesc ]
 # Unquoted service paths
 # Detection
 powershell -exec bypass -command "& { Import-Module .\PowerUp.ps1; Invoke-AllChecks; }"
-
-# [*] Checking for unquoted service paths...
-# 
-# ServiceName    : unquotedsvc
-# Path           : C:\Program Files\Unquoted Path Service\Common Files\unquotedpathservice.exe
-# ModifiablePath : @{Permissions=AppendData/AddSubdirectory; ModifiablePath=C:\;IdentityReference=NT AUTHORITY\Authenticated Users}
-# StartName      : LocalSystem
-# AbuseFunction  : Write-ServiceBinary -Name 'unquotedsvc' -Path <HijackPath>
-# CanRestart     : True
-# 
-# ServiceName    : unquotedsvc
-# Path           : C:\Program Files\Unquoted Path Service\Common Files\unquotedpathservice.exe
-# ModifiablePath : @{Permissions=System.Object[]; ModifiablePath=C:\; IdentityReference=NT AUTHORITY\Authenticated Users}
-# StartName      : LocalSystem
-# AbuseFunction  : Write-ServiceBinary -Name 'unquotedsvc' -Path <HijackPath>
-# CanRestart     : True
-
-# or
-
+wmic service get name,pathname |  findstr /i /v "C:\Windows\\" | findstr /i /v """
 winPEAS.exe
-# [+] Interesting Services -non Microsoft-(T1007)
-# unquotedsvc(Unquoted Path Service)[C:\Program Files\Unquoted Path Service\Common Files\unquotedpathservice.exe] - Manual - Stopped - No quotes and Space detected
+
+# Validation
+$serviceName = "YourServiceName"; $accessRules = (Get-Service -Name $serviceName).ServiceHandle | Get-Acl | % { $_.GetAccessRules($true, $true, [System.Security.Principal.NTAccount]) }; $canStart = $accessRules | ? { $_.FileSystemRights -band 4 -and $_.IdentityReference.Translate([System.Security.Principal.SecurityIdentifier]).Value -eq [System.Security.Principal.WindowsIdentity]::GetCurrent().User.Value }; $canStop = $accessRules | ? { $_.FileSystemRights -band 2 -and $_.IdentityReference.Translate([System.Security.Principal.SecurityIdentifier]).Value -eq [System.Security.Principal.WindowsIdentity]::GetCurrent().User.Value }; if ($canStart -and $canStop) { "You have permission to start and stop the service: $serviceName" } elseif ($canStart) { "You have permission to start the service: $serviceName" } elseif ($canStop) { "You have permission to stop the service: $serviceName" } else { "You do not have permission to start or stop the service: $serviceName" }
 
 # Exploitation
 # Attacker

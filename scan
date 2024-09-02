@@ -1,0 +1,8 @@
+# TCP Scanning                                                                                                                                             
+nc -nvv -w 1 -z target_IP Port-Range                                                                                                                       
+                                                                                                                                                           
+# UDP scanning                                                                                                                                             
+nc -nv -u -z -w 1 target_IP Port-Range
+
+# Powershell
+1..1024 | % {echo ((New-Object Net.Sockets.TcpClient).Connect("TARGET_IP", $_)) "TCP port $_ is open"} 2>$null

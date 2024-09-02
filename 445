@@ -20,6 +20,7 @@ enum4linux -a <IP>
 
 smbclient --no-pass -L //$IP
 smbclient //<IP>/<SHARE>
+smbclient \\\\192.168.50.212\\secrets -U Administrator --pw-nt-hash 7a38310ea6f0027ee955abed1762964b
 
 # Download all files from a directory recursively
 smbclient //<IP>/<SHARE> -U <USER> -c "prompt OFF;recurse ON;mget *"

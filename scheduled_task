@@ -1,0 +1,6 @@
+# Abusing Scheduled Task
+# Look for what get executed en when
+Get-ScheduledTask
+schtasks /query /fo LIST /v
+
+# Confirm access right with icacls

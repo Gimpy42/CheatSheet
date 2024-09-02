@@ -2,6 +2,13 @@
 tags: [ exploit, wpe, windows, privesc ]
 ---
 # Windows Priviledge Escalation
+- Username and hostname
+- Group memberships of the current user
+- Existing users and groups
+- Operating system, version and architecture
+- Network information
+- Installed applications
+- Running processes
 
 # Enumeration
 # General Scanning tool
@@ -35,6 +42,8 @@ cheat unquoted_service_paths
 cheat hot_potato
 cheat juicy_potato
 cheat CVE
+cheat service_hijacking
+cheat scheduled_task
 
 # Common exploit
 KiTrap0D (KB979682)
